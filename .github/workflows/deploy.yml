@@ -1,0 +1,30 @@
+name: cv
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write   # allow pushing gh-pages + tags
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # required for tags
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Deploy using Makefile
+        run: make deploy
