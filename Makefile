@@ -73,7 +73,6 @@ deploy: ensure-clean
 
 	@echo "▶ Cleaning old build"
 	git rm -rf . >/dev/null 2>&1 || true
-	git clean -fxd
 
 	@echo "▶ Copying new build"
 	cp -r $(BUILD_DIR)/* .
