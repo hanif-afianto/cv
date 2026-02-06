@@ -1,12 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-  ssr: false,
-  app: {
-    baseURL: '/cv/'
-  },
+const repo = process.env.GITHUB_REPOSITORY?.split('/')[1]
 
-  nitro: {
-    preset: 'github-pages'
-  }
+export default defineNuxtConfig({
+    compatibilityDate: '2025-07-15',
+    ssr: false,
+    app: {
+        baseURL:
+            process.env.NODE_ENV === 'production' && repo ? `/${repo}/` : '/',
+    },
 })
