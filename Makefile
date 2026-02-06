@@ -43,7 +43,8 @@ ensure-branch:
 	@if git show-ref --quiet refs/heads/$(DEPLOY_BRANCH); then \
 		echo "✔ Local branch exists"; \
 	elif git ls-remote --exit-code --heads origin $(DEPLOY_BRANCH) > /dev/null 2>&1; then \
-		echo "✔ Remote branch exists → checkout"; \
+		echo "✔ Remote branch exists → fetch and checkout"; \
+		git fetch origin $(DEPLOY_BRANCH):$(DEPLOY_BRANCH); \
 		git checkout $(DEPLOY_BRANCH); \
 	else \
 		echo "➕ Creating orphan $(DEPLOY_BRANCH)"; \
