@@ -8,4 +8,7 @@ export default defineNuxtConfig({
         baseURL:
             process.env.NODE_ENV === 'production' && repo ? `/${repo}/` : '/',
     },
+    nitro: {
+        preset: 'github-pages',
+    },
 })
