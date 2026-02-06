@@ -2,7 +2,7 @@
 # CONFIG
 # ==============================
 
-MAIN_BRANCH := main
+MAIN_BRANCH := master
 DEPLOY_BRANCH := gh-pages
 BUILD_DIR := .output/public
 DEPLOY_TAG := deploy-$(shell date +%Y%m%d-%H%M%S)
