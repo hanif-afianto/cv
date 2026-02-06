@@ -43,9 +43,9 @@ ensure-branch:
 	@if git show-ref --quiet refs/heads/$(DEPLOY_BRANCH); then \
 		echo "✔ Local branch exists"; \
 	elif git ls-remote --exit-code --heads origin $(DEPLOY_BRANCH) > /dev/null 2>&1; then \
-		echo "✔ Remote branch exists → fetch and checkout"; \
-		git fetch origin $(DEPLOY_BRANCH):$(DEPLOY_BRANCH); \
-		git checkout $(DEPLOY_BRANCH); \
+		echo "✔ Remote branch exists → fetch and reset"; \
+		git fetch origin $(DEPLOY_BRANCH); \
+		git checkout -B $(DEPLOY_BRANCH) FETCH_HEAD; \
 	else \
 		echo "➕ Creating orphan $(DEPLOY_BRANCH)"; \
 		git checkout --orphan $(DEPLOY_BRANCH); \
@@ -80,9 +80,9 @@ deploy: ensure-clean
 	@echo "▶ Commit + tag + push"
 	git add .
 	git commit -m "deploy: update gh-pages"
-	git tag $(DEPLOY_TAG)
-	git push origin $(DEPLOY_BRANCH)
-	git push origin $(DEPLOY_TAG)
+	git tag -f $(DEPLOY_TAG)
+	git push -f origin $(DEPLOY_BRANCH)
+	git push -f origin $(DEPLOY_TAG)
 
 	@echo "▶ Back to $(MAIN_BRANCH)"
 	git checkout $(MAIN_BRANCH)
